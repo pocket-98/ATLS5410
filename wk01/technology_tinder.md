@@ -1,5 +1,6 @@
 # Technology Tinder
 ### Emacs and Vim
+### [https://pocket-98.github.io/ATLS5410/wk01/technology_tinder.html](https://pocket-98.github.io/ATLS5410/wk01/technology_tinder.html)
 ### Pocket
 ### 2024-01-22
 ### v1.1 (2025-01-23)
@@ -12,7 +13,7 @@ Computer nerds have strong opinions about favoring one or the other and it is on
 Fundamentally, both of them are tools to enable productivity and being proficient at either of these editors can give one the appearance of being a "coding god".
 
 
-## Swipe Left: Emacs 👎
+## Swipe Left: Emacs :-1:
 <img src="technology_tinder_img/emacslogo.png" width="200"/>
 
 * based on a history of hacks, addons, bloat, and maintining compatibility
@@ -30,7 +31,7 @@ Fundamentally, both of them are tools to enable productivity and being proficien
    * Escape Meta Alt Control Shift
    * Eight Megabytes And Constantly Swapping
 
-## Swipe Right: Vim 👍
+## Swipe Right: Vim :+1:
 <img src="technology_tinder_img/vimlogo.png" width="200"/>
 
 * based on a history of standards, improvement, customs and sound philosophy:
