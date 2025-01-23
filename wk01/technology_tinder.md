@@ -2,8 +2,8 @@
 ### Emacs and Vim
 ### [https://pocket-98.github.io/ATLS5410/wk01/technology_tinder.html](https://pocket-98.github.io/ATLS5410/wk01/technology_tinder.html)
 ### Pocket
-### 2024-01-22
-### v1.1 (2025-01-23)
+### 2025-01-22
+### v1.2 (2025-01-23)
 
 ----
 
@@ -31,6 +31,7 @@ Fundamentally, both of them are tools to enable productivity and being proficien
    * Escape Meta Alt Control Shift
    * Eight Megabytes And Constantly Swapping
 
+
 ## Swipe Right: Vim :+1:
 <img src="technology_tinder_img/vimlogo.png" width="200"/>
 
@@ -41,7 +42,11 @@ Fundamentally, both of them are tools to enable productivity and being proficien
   * vim: 1991 Bram Moolenaar, added user scripting in 1998, still actively developed today
   * neovim: 2014 fork to allow multithreading, allows for lua support and plugins
 * available in some form on every unix operating system by default including macos
-* 
+* vim movement keybindings available in variety of other programs
+  * obsidian note taking app for mobile devices supports vim bindings
+  * vscode supports vim bindings
+* 5x more popular consistently according to the [stack overflow developer survey](https://survey.stackoverflow.co/2024/technology#1-integrated-development-environment)
+
 
 ## Comparison
 * both are hard to learn and have a barrier to entry, especially in a world where GUIs are the default and terminals can be scary
@@ -52,5 +57,5 @@ Fundamentally, both of them are tools to enable productivity and being proficien
   * <img src="technology_tinder_img/emacsevil.png" width="500"/>
 * emacs can act as an entire operating system with connections to servers, shell, browsing the internet, and navigating files
   * <img src="technology_tinder_img/emacsbrowser.png" width="500"/>
-* google searches for vi result in the question "Did you mean: emacs" and searches for emacs result in "Did you mean: vi".
+* google searches for vim result in the question "Did you mean: emacs" and searches for emacs result in "Did you mean: vim".
   * <img src="technology_tinder_img/google_emacs_vim.png" width="500">
