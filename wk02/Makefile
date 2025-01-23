@@ -4,7 +4,7 @@ FLAGS      ?= --verbose
 PORT       ?= /dev/cu.usbmodem1101
 BOARD      ?= arduino:avr:uno
 
-SOURCES     = blink/blink.ino
+SOURCES     = fade/fade.ino
 BIN         = bin
 OUTPUT      = $(BIN)/$(notdir $(basename $(SOURCES))).ino.hex
 
