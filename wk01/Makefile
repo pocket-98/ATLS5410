@@ -28,8 +28,8 @@ vars:
 # print help
 help:
 	@echo "usage: make [FLAGS=<flags>]"
+	@echo "make all        build all html files from corresponding markdown files"
 	@echo "make help       show this help message"
 	@echo "make vars       preview what sources and outputs are defined"
-	@echo "make all        build all html files from corresponding markdown files"
 	@echo "make file.html  builds specified html file from corresponding markdown file"
 	@echo "make clean      deletes all html files that have a corresponding md file"
