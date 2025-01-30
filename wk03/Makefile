@@ -3,8 +3,9 @@ ACLI        = arduino-cli
 FLAGS      ?= --verbose
 PORT       ?= /dev/cu.usbmodem1401
 BOARD      ?= arduino:avr:uno
+BAUD       ?= 115200
 
-SOURCES     = altitude/altitude.ino
+SOURCES     = gps/gps.ino
 BIN         = bin
 OUTPUT      = $(BIN)/$(notdir $(basename $(SOURCES))).ino.hex
 
@@ -32,7 +33,7 @@ upload: $(TMP_UPLOAD)
 $(TMP_UPLOAD): $(TMP_COMPILE)
 
 serial:
-	$(ACLI) monitor $(FLAGS) --port $(PORT)
+	$(ACLI) monitor --config $(BAUD) $(FLAGS) --port $(PORT)
 
 boards:
 	$(ACLI) board list
