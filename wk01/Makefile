@@ -1,6 +1,6 @@
 # Makefile for markdown html files
 PANDOC  = pandoc
-FLAGS  ?= --from=gfm --to=html
+FLAGS  ?=  --from=gfm --to=html5+smart --css styling.css -s --mathjax
 
 SOURCES = technology_tinder.md \
           proposal.school_video.md

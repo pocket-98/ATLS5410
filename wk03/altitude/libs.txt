@@ -1,0 +1,3 @@
+https://github.com/adafruit/Adafruit-BMP085-Library
+https://github.com/adafruit/Adafruit_BusIO
+https://github.com/adafruit/Adafruit_Sensor
