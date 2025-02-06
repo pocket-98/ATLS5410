@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>pet_peeves</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="styling.css" />
+</head>
+<body>
+<h1 id="pet-peeves">Pet Peeves</h1>
+<h3 id="school-shootings-tv-remotes-and-dying-plants">School Shootings,
+TV Remotes, and Dying Plants</h3>
+<h3 id="httpspocket-98githubioatls5410wk04pet_peeveshtml"><a
+href="https://pocket-98.github.io/ATLS5410/wk04/pet_peeves.html"><span>https://pocket-98.github.io/ATLS5410/wk04/pet_peeves.html</span></a></h3>
+<h3 id="pocket">Pocket</h3>
+<h3 id="2025-02-06">2025-02-06</h3>
+<h3 id="v10-2025-02-06">v1.0 (2025-02-06)</h3>
+<hr />
+<h2 id="school-shootings">School Shootings</h2>
+<p>I get more and more angry at our government every time a more drastic
+school shooting occurs and the people in charge don't make any changes
+to legislation. I propose building a simple model of a new system to
+alert and bring to the attention of policy makers the issue of mass
+shootings. The basic concept is to have an arduino node with a camera
+and some type of basic computer vision recognition model that can detect
+the presense of a gun. This would then send a message to a different
+arduino node that lives in congress in view of all of the US senate
+which would have a solenoid that can trigger an air horn and flash
+lights when triggered. This would bring make the senators the first to
+be alerted about the threat of a shooting and remind them that the issue
+exists and should have focus dedicated to it. Making this is going to
+involve setting up a camera with either a Chromebook or an esp32 that
+can detect the presence of a firearm and then communicate wirelessly
+either using WiFi or radio to a different arduino that will sound an
+alarm and make lights flash to illuminate a sign reading "What are you
+going to do about this one?". A more long term plan for this project is
+to create an entire decentralyzed security system that uses very cheap
+nodes and is made open source so that schools could get access to ai
+enabled video security at a very low cost while reducing ewaste by
+upcycling old chromebooks as compute nodes that the same schools are
+discarding.</p>
+<p><a href="https://pirg.org/edfund/articles/why-parents-teachers-and-school-districts-are-fed-up-with-their-chromebooks/"><img src="https://publicinterestnetwork.org/wp-content/uploads/2023/04/Chromebook-Churn-Banner-1-1500x844.jpg" width=300/></a></p>
+<h2 id="tv-remote">TV Remote</h2>
+<p>I lost a TV remote to a samsung smartish TV that is connected to the
+wifi, so I am able to use the open source project <a
+href="https://github.com/Ape/samsungctl">samsungctl</a> running on my
+laptop to switch inputs. I would rather have a physical remote with
+buttons that can be used to control the TV instead of having to open up
+a laptop and typing cli commands. Fixing this pet peeve could be done in
+2 ways: by reverse engineering the samsung infrared signals that are
+sent by an IR blaster from arduino, or by mimicing the same kind of
+packets sent by the open source library over wifi with an esp32. I would
+make a couple of physical buttons to connect to either the arduino or
+the esp32 and then depending on the technology used, send the wifi
+commands or ir signal. The goal would be to build this for a budget of
+~$10 because the universal remote costs $40 at bestbuy.</p>
+<p><a href="https://www.bestbuy.com/site/insignia-replacement-remote-for-samsung-tvs-black/6448217.p?skuId=6448217"><img src="https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6448/6448217_rd.jpg;maxHeight=640;maxWidth=550;format=webp" width=100/></a></p>
+<h2 id="dying-plants">Dying Plants</h2>
+<p>I have a dream of being able to grow piennolo del vesuvio tomatoes. I
+may or may not have ordered seeds for these amazing tomatoes that are
+world renowned for their flavor and natural ability for self
+preservation, and these seeds may or may not have had a very high cost
+due to it possibly having to have been purchased on a black market
+because importing the plant into the US would be illegal. These tomatoes
+grow in the fertile acidic soil around Naples from the volcano Mount
+Vesuvious and an amazing property of these tomatoes is that they can be
+picked in one season, left on a room temperature shelf for over 6
+months, and they will not shrivel or dry or shrink, they will naturally
+stay perfectly preserved. These tomatoes also amusingly all have nipples
+on them. Chefs prefer using this type of tomato for its consistent
+availability year round and high quality. I may or may not have made
+multiple attempts to grow this particular tomato in a completely
+different climate in colorado without success. I need to have the
+correct humidity, type of soil, and temperature to ensure its success
+which will require making an enclosed terrarium with clocks and sensors
+controlling and regulating temperature, humidity, light, and pumped
+water. This could all be accomplished using arduino, soil sensors,
+humidity and temperature sensors, an oven heating element, a water
+atomizer, grow lights, relays, and some buck-boost voltage regulators. A
+more long term project that could evolve from this is adding a raspberry
+pi and a camera to monitor how well the plants do so that experiments
+can be made to determine more efficient ways to grow the tomatoes.</p>
+<p><a href="https://heritageseedmarket.com/index.php/product/piennolo-del-vesuvio-regular-leaf/"><img src="https://heritageseedmarket.com/wp-content/uploads/2021/12/Vesuvio.jpg" width=300/></a></p>
+</body>
+</html>
