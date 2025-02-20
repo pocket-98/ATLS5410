@@ -1,0 +1,10 @@
+Name: "Stepper"
+  Author: Arduino
+  Maintainer: Arduino <info@arduino.cc>
+  Sentence: Allows Arduino boards to control a variety of stepper motors.
+  Paragraph: This library allows you to control unipolar or bipolar stepper motors. To use it you will need a stepper motor, and the appropriate hardware to control it.
+  Website: https://www.arduino.cc/en/Reference/Stepper
+  Category: Device Control
+  Architecture: *
+  Types: Arduino
+  Versions: [1.0.0, 1.0.1, 1.0.2, 1.1.1, 1.1.2, 1.1.3]

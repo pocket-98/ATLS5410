@@ -1,10 +1,10 @@
 # Makefile for compiling and uploading arduino sketches
 ACLI        = arduino-cli
 FLAGS      ?= --verbose
-PORT       ?= /dev/cu.usbmodem1401
+PORT       ?= /dev/cu.usbmodem1101
 BOARD      ?= arduino:avr:uno
 
-SOURCES     = pressure/pressure.ino
+SOURCES     = blink/blink.ino
 BIN         = bin
 OUTPUT      = $(BIN)/$(notdir $(basename $(SOURCES))).ino.hex
 
