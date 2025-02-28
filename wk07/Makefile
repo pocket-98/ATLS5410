@@ -5,7 +5,7 @@ PORT       ?= /dev/cu.usbmodem11101
 BOARD      ?= arduino:avr:uno
 BAUD       ?= 115200
 
-SOURCES     = motor/motor.ino
+SOURCES     = ir_blast/ir_blast.ino
 BIN         = bin
 OUTPUT      = $(BIN)/$(notdir $(basename $(SOURCES))).ino.hex
 
