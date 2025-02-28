@@ -1,38 +1,4 @@
 /*
- * SendDemo.cpp
- *
- * Demonstrates sending IR codes in standard format with address and command
- *
- *  This file is part of Arduino-IRremote https://github.com/Arduino-IRremote/Arduino-IRremote.
- *
- ************************************************************************************
- * MIT License
- *
- * Copyright (c) 2020-2023 Armin Joachimsmeyer
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is furnished
- * to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
- * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
- * PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
- * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
- * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
- * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- ************************************************************************************
- */
-
-#include <Arduino.h>
-
-/*
  *  PinDefinitionsAndMore.h
  *
  *  Contains pin definitions for IRremote examples for various platforms
@@ -69,11 +35,12 @@
  * ATtiny167    9|PA3       8|PA2       5|PA7     Digispark original core
  * ATtiny84      |PB2        |PA4        |PA3     ATTinyCore
  * ATtiny88     3|PD3       4|PD4       9|PB1     ATTinyCore
- * ATtiny3217  18|PA1      19|PA2      20|PA3     MegaTinyCore
+ * ATtiny3216  14|PA1      15|PA2      16|PA3     MegaTinyCore
  * ATtiny1604   2           3|PA5       %
  * ATtiny816   14|PA1      16|PA3       1|PA5     MegaTinyCore
  * ATtiny1614   8|PA1      10|PA3       1|PA5     MegaTinyCore
- * SAMD21       3           4           5
+ * MKR*         1           3           4
+ * SAMD         2           3           4
  * ESP8266      14|D5       12|D6       %
  * ESP32        15          4          27
  * ESP32-C3     2           3           4
@@ -127,10 +94,10 @@
 // Tiny Core Dev board
 // https://www.tindie.com/products/xkimi/tiny-core-16-dev-board-attiny1616/ - Out of Stock
 // https://www.tindie.com/products/xkimi/tiny-core-32-dev-board-attiny3217/ - Out of Stock
-#define IR_RECEIVE_PIN   PIN_PA1 // use 18 instead of PIN_PA1 for TinyCore32
-#define IR_SEND_PIN      PIN_PA2 // 19
-#define TONE_PIN         PIN_PA3 // 20
-#define APPLICATION_PIN  PIN_PA0 // 0
+#define IR_RECEIVE_PIN   PIN_PA1 // 14 use 18 instead of PIN_PA1 for TinyCore32
+#define IR_SEND_PIN      PIN_PA2 // 15, 19 for TinyCore32
+#define TONE_PIN         PIN_PA3 // 16, 20 for TinyCore32
+#define APPLICATION_PIN  PIN_PC3 // 13, PIN_PA0 is RESET
 #undef LED_BUILTIN               // No LED available on the TinyCore 32 board, take the one on the programming board which is connected to the DAC output
 #define LED_BUILTIN      PIN_PA6 // use 2 instead of PIN_PA6 for TinyCore32
 
@@ -226,9 +193,12 @@
 #include <Arduino.h>
 
 // tone() is included in ESP32 core since 2.0.2
-#if !defined(ESP_ARDUINO_VERSION_VAL)
-#define ESP_ARDUINO_VERSION_VAL(major, minor, patch) 12345678
-#endif
+#  if !defined(ESP_ARDUINO_VERSION)
+#define ESP_ARDUINO_VERSION 0x010101 // Version 1.1.1
+#  endif
+#  if !defined(ESP_ARDUINO_VERSION_VAL)
+#define ESP_ARDUINO_VERSION_VAL(major, minor, patch) ((major << 16) | (minor << 8) | (patch))
+#  endif
 #if ESP_ARDUINO_VERSION  <= ESP_ARDUINO_VERSION_VAL(2, 0, 2)
 #define TONE_LEDC_CHANNEL        1  // Using channel 1 makes tone() independent of receiving timer -> No need to stop receiving timer.
 void tone(uint8_t aPinNumber, unsigned int aFrequency){
@@ -319,7 +289,11 @@ void noTone(uint8_t aPinNumber){
 #define _IR_TIMING_TEST_PIN 7
 
 #elif defined(ARDUINO_ARCH_SAMD) || defined(ARDUINO_ARCH_SAM)
+#  if defined(USE_ARDUINO_MKR_PIN_LAYOUT)
+#define IR_RECEIVE_PIN      1 // Pin 2 on MKR is not interrupt capable, see https://www.arduino.cc/reference/tr/language/functions/external-interrupts/attachinterrupt/
+#  else
 #define IR_RECEIVE_PIN      2
+#  endif
 #define IR_SEND_PIN         3
 #define TONE_PIN            4
 #define APPLICATION_PIN     5
@@ -381,103 +355,3 @@ void noTone(uint8_t aPinNumber){
 #define STR_HELPER(x) #x
 #define STR(x) STR_HELPER(x)
 #endif
-
-#if !defined(ARDUINO_ESP32C3_DEV) // This is due to a bug in RISC-V compiler, which requires unused function sections :-(.
-#define DISABLE_CODE_FOR_RECEIVER // Disables static receiver code like receive timer ISR handler and static IRReceiver and irparams data. Saves 450 bytes program memory and 269 bytes RAM if receiving functions are not required.
-#endif
-//#define EXCLUDE_EXOTIC_PROTOCOLS  // Saves around 240 bytes program memory if IrSender.write is used
-//#define SEND_PWM_BY_TIMER         // Disable carrier PWM generation in software and use (restricted) hardware PWM.
-//#define USE_NO_SEND_PWM           // Use no carrier PWM, just simulate an active low receiver signal. Overrides SEND_PWM_BY_TIMER definition
-//#define USE_ACTIVE_HIGH_OUTPUT_FOR_SEND_PIN // Simulate an active high receiver signal instead of an active low signal.
-//#define USE_OPEN_DRAIN_OUTPUT_FOR_SEND_PIN  // Use or simulate open drain output mode at send pin. Attention, active state of open drain is LOW, so connect the send LED between positive supply and send pin!
-//#define NO_LED_FEEDBACK_CODE      // Saves 566 bytes program memory
-
-//#undef IR_SEND_PIN // enable this, if you need to set send pin programmatically using uint8_t tSendPin below
-#include <IRremote.hpp>
-
-#define DELAY_AFTER_SEND 2000
-#define DELAY_AFTER_LOOP 5000
-
-void setup() {
-    Serial.begin(115200);
-    while (!Serial)
-        ; // Wait for Serial to become available. Is optimized away for some cores.
-
-#if defined(__AVR_ATmega32U4__) || defined(SERIAL_PORT_USBVIRTUAL) || defined(SERIAL_USB) /*stm32duino*/|| defined(USBCON) /*STM32_stm32*/ \
-    || defined(SERIALUSB_PID)  || defined(ARDUINO_ARCH_RP2040) || defined(ARDUINO_attiny3217)
-    delay(4000); // To be able to connect Serial monitor after reset or power up and before first print out. Do not wait for an attached Serial Monitor!
-#endif
-    // Just to know which program is running on my Arduino
-    Serial.println(F("START " __FILE__ " from " __DATE__ "\r\nUsing library version " VERSION_IRREMOTE));
-
-#if defined(IR_SEND_PIN)
-    IrSender.begin(); // Start with IR_SEND_PIN -which is defined in PinDefinitionsAndMore.h- as send pin and enable feedback LED at default feedback LED pin
-//    disableLEDFeedback(); // Disable feedback LED at default feedback LED pin
-#  if defined(IR_SEND_PIN_STRING)
-    Serial.println(F("Send IR signals at pin " IR_SEND_PIN_STRING));
-#  else
-    Serial.println(F("Send IR signals at pin " STR(IR_SEND_PIN)));
-#  endif
-#else
-    // Here the macro IR_SEND_PIN is not defined or undefined above with #undef IR_SEND_PIN
-    uint8_t tSendPin = 3;
-    IrSender.begin(tSendPin, ENABLE_LED_FEEDBACK, USE_DEFAULT_FEEDBACK_LED_PIN); // Specify send pin and enable feedback LED at default feedback LED pin
-    // You can change send pin later with IrSender.setSendPin();
-
-    Serial.print(F("Send IR signals at pin "));
-    Serial.println(tSendPin);
-#endif
-
-#if !defined(SEND_PWM_BY_TIMER)
-    /*
-     * Print internal software PWM signal generation info
-     */
-    IrSender.enableIROut(38); // Call it with 38 kHz just to initialize the values printed below
-    Serial.print(F("Send signal mark duration is "));
-    Serial.print(IrSender.periodOnTimeMicros);
-    Serial.print(F(" us, pulse narrowing correction is "));
-    Serial.print(IrSender.getPulseCorrectionNanos());
-    Serial.print(F(" ns, total period is "));
-    Serial.print(IrSender.periodTimeMicros);
-    Serial.println(F(" us"));
-#endif
-
-#if defined(LED_BUILTIN) && !defined(NO_LED_FEEDBACK_CODE)
-#  if defined(FEEDBACK_LED_IS_ACTIVE_LOW)
-    Serial.print(F("Active low "));
-#  endif
-    Serial.print(F("FeedbackLED at pin "));
-    Serial.println(LED_BUILTIN); // Works also for ESP32: static const uint8_t LED_BUILTIN = 8; #define LED_BUILTIN LED_BUILTIN
-#endif
-
-}
-
-/*
- * Set up the data to be sent.
- * For most protocols, the data is build up with a constant 8 (or 16 byte) address
- * and a variable 8 bit command.
- * There are exceptions like Sony and Denon, which have 5 bit address.
- */
-uint16_t sAddress = 0x07;
-uint8_t sCommand = 0x07;
-uint16_t s16BitCommand = 0x5634;
-uint8_t sRepeats = 0;
-
-void loop() {
-    /*
-     * Print values
-     */
-    Serial.println();
-    Serial.print(F("address=0x"));
-    Serial.print(sAddress, HEX);
-    Serial.print(F(" command=0x"));
-    Serial.print(sCommand, HEX);
-    Serial.print(F(" repeats="));
-    Serial.println(sRepeats);
-    Serial.println();
-    Serial.println();
-    Serial.flush();
-    
-    delay(1000);
-    IrSender.sendSamsung(sAddress, sCommand, sRepeats);
-}
