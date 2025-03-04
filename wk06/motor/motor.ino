@@ -7,15 +7,9 @@
 Stepper stepper(STEPS, 8, 10, 9, 11);
 
 // Define button pins
-const int leftButtonPin = 2;
-const int rightButtonPin = 3;
+const int leftButtonPin = A2;
+const int rightButtonPin = A3;
 const int fanPin = 5;
-
-// // Variables to track button state
-// bool leftState = HIGH;
-// bool lastLeftState = HIGH;
-// bool rightState = HIGH;
-// bool lastRightState = HIGH;
 
 // Track motor direction
 int direction = 0; // 1 = clockwise, -1 = counterclockwise
@@ -23,17 +17,17 @@ int direction = 0; // 1 = clockwise, -1 = counterclockwise
 void setup() {
     Serial.begin(115200);
     stepper.setSpeed(600); // Set speed in RPM
-    
-    pinMode(leftButtonPin, INPUT_PULLUP);
-    pinMode(rightButtonPin, INPUT_PULLUP);
+
+    pinMode(leftButtonPin, INPUT);
+    pinMode(rightButtonPin, INPUT);
 
     Serial.println("Stepper motor button control initialized.");
 }
 
 void loop() {
     // Read button states
-    int leftState = digitalRead(leftButtonPin);
-    int rightState = digitalRead(rightButtonPin);
+    bool leftState = analogRead(leftButtonPin) > 1000;
+    bool rightState = analogRead(rightButtonPin) > 1000;
 
     // Check for left button press (state change from HIGH to LOW)
     if (leftState == HIGH && rightState == LOW) {
@@ -48,9 +42,9 @@ void loop() {
 
     // Move motor in the selected direction
     if (direction == 1) {
-        stepper.step(STEPS * 1); // Move clockwise
+        stepper.step(-STEPS * 1); // Move clockwise
     } else if (direction == -1) {
-        stepper.step(-STEPS * 1); // Move counterclockwise
+        stepper.step(STEPS * 1); // Move counterclockwise
     } else {
         // dont move
     }

@@ -1,7 +1,7 @@
 # Makefile for compiling and uploading arduino sketches
 ACLI        = arduino-cli
 FLAGS      ?= --verbose
-PORT       ?= /dev/cu.usbmodem11101
+PORT       ?= /dev/cu.usbmodem1201
 BOARD      ?= arduino:avr:uno
 BAUD       ?= 115200
 
