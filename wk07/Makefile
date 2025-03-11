@@ -1,8 +1,8 @@
 # Makefile for compiling and uploading arduino sketches
 ACLI        = arduino-cli
 FLAGS      ?= --verbose
-PORT       ?= /dev/cu.usbmodem11101
-BOARD      ?= arduino:avr:uno
+PORT       ?= /dev/tty.usbserial-0001
+BOARD      ?= esp32:esp32:esp32da
 BAUD       ?= 115200
 
 SOURCES     = ir_blast/ir_blast.ino
