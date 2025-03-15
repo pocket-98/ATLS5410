@@ -1,4 +1,10 @@
 # Makefile for compiling and uploading arduino sketches
+PANDOC  = pandoc
+PDFLAGS  ?=  --from=gfm --to=html5+smart --css styling.css -s --mathjax
+
+MDSOURCES = documentation.md
+MDOUTPUTS = $(patsubst %.md,%.html, $(filter %.md,$(MDSOURCES)))
+
 ACLI        = arduino-cli
 FLAGS      ?= --verbose
 PORT       ?= /dev/tty.usbserial-0001
@@ -7,14 +13,17 @@ BAUD       ?= 115200
 
 SOURCES     = ir_blast/ir_blast.ino
 BIN         = bin
-OUTPUT      = $(BIN)/$(notdir $(basename $(SOURCES))).ino.hex
+OUTPUT      = $(BIN)/$(notdir $(basename $(SOURCES))).ino.bin
 
 TMP_COMPILE = $(BIN)/.compile
 TMP_UPLOAD  = $(BIN)/.upload
 
 .PHONY: all compile upload serial boards help vars clean cleaner
 
-all: upload
+all: $(MDOUTPUTS) upload
+
+%.html: %.md
+	$(PANDOC) $(PDFLAGS) -o $@ $<
 
 $(TMP_COMPILE): $(OUTPUT)
 	touch $(TMP_COMPILE)
@@ -42,12 +51,18 @@ RM = rm -f
 clean:
 	$(RM) $(TMP_COMPILE) $(TMP_UPLOAD)
 	$(RM) $(OUTPUT)
+	$(RM) $(MDOUTPUTS)
 
 cleaner:
 	$(RM) -r $(BIN)
+	$(RM) $(MDOUTPUTS)
 
 # print variables
 vars:
+	@echo "PANDOC                   $(PANDOC)"
+	@echo "PDFLAGS                  $(PDFLAGS)"
+	@echo "MDSOURCES                $(MDSOURCES)"
+	@echo "MDOUTPUTS                $(MDOUTPUTS)"
 	@echo "ACLI                     $(ACLI)"
 	@echo "FLAGS                    $(FLAGS)"
 	@echo "PORT                     $(PORT)"
