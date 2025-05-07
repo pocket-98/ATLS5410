@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>documentation</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="styling.css" />
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<h1 id="idc1-documentation">IDC1 Documentation</h1>
+<h3 id="ir-tv-remote">IR TV Remote</h3>
+<h3 id="httpspocket-98githubioatls5410wk07documentationhtml"><a
+href="https://pocket-98.github.io/ATLS5410/wk07/documentation.html"><span>https://pocket-98.github.io/ATLS5410/wk07/documentation.html</span></a></h3>
+<h3 id="pocket">Pocket</h3>
+<h3 id="2025-03-14-pi">2025-03-14 (<span
+class="math inline">\(\pi\)</span>)</h3>
+<h3 id="v10">v1.0</h3>
+<hr />
+<h2 id="proposal">Proposal</h2>
+<p>I lost a TV remote to a samsung smartish TV that is connected to the
+wifi, so I am able to use the open source project <a
+href="https://github.com/Ape/samsungctl">samsungctl</a> running on my
+laptop to switch inputs. I would rather have a physical remote with
+buttons that can be used to control the TV instead of having to open up
+a laptop and typing cli commands. Fixing this pet peeve could be done in
+2 ways: by reverse engineering the samsung infrared signals that are
+sent by an IR blaster from arduino, or by mimicing the same kind of
+packets sent by the open source library over wifi with an esp32. I would
+make a couple of physical buttons to connect to either the arduino or
+the esp32 and then depending on the technology used, send the wifi
+commands or ir signal. The goal would be to build this for a budget of
+~$10 because the universal remote costs $40 at bestbuy.</p>
+<p><a href="https://www.bestbuy.com/site/insignia-replacement-remote-for-samsung-tvs-black/6448217.p?skuId=6448217"><img src="https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6448/6448217_rd.jpg;maxHeight=640;maxWidth=550;format=webp" width=100/></a></p>
+<h2 id="iteration-1">Iteration 1</h2>
+<p>First, I tried capturing signals from the arduino kit IR remote and
+the IR receiver hooked up to an oscilloscope so I could make sure I
+understood the protocol and decode signals, and also have a way of
+testing whether the circuit I would later build was functioning
+correctly.</p>
+<img src="oscilloscope.jpg" width=500/>
+
+<p>Then I used the database of IR Remote codes from the <a
+href="https://lirc-remotes.sourceforge.net/remotes-table.html">Linux
+Infrared Remote Control project</a> to find the codes for the buttons I
+wanted to emulate.</p>
+<p>I got an infrared LED that operates at 950nm from sparkfun and
+according to the data sheet it requires 100mA of current to operate. It
+took a lot of experimentation with a FET to drive the LED at the desired
+power. My first iteration only functioned at less than 12 inches away
+from the TV. I got more and more bold, eventually pushing the amperage
+through the LED to 200mA using a 10<span
+class="math inline">\(\Omega\)</span> resistor. This worked, and now I
+was controlling my TV from across the room!</p>
+<p>The next step was moving from a breadboard to a perf board and adding
+buttons to control various functions like volume and input as well as
+power. I also added a power voltage regulator board so that the arduino
+could be powered off a 9v battery and a switch is used to fully turn off
+the remote to save power. The final demo video can be seen here:</p>
+<video width="320" height="240" controls>
+  <source src="demo.mov" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+</body>
+</html>

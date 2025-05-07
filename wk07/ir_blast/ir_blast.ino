@@ -6,6 +6,8 @@
 #define IR_SEND_PIN 2
 //#define IR_RECEIVE_PIN 5
 
+// samsung nec2 command codes
+// https://github.com/zmoteio/irdb.tk/blob/master/codes/Samsung/TV/7%2C7.csv
 #define POWER_PIN 14
 #define POWER_CMD 0x7
 #define POWER_ADDR 0x2
