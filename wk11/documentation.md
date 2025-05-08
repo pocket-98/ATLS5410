@@ -42,4 +42,5 @@ Finally, after the enclosure was printed and the parts were fit into it, this is
 
 <img width="500" src="final.jpg"/>
 
-In the future, if I were to do this project again,
+If I were to refine this project even more, I could design a custom PCB but the
+remote as it currently is works very well for my needs. I am very happy with the result and I think it is a good example of how to use a microcontroller to do parallel tasks like checking the status of whether a device is online and then control a relay and also send IR signals. I am also happy with the enclosure design but it could be improved if the buttons were integrated with the lid design.
